@@ -33,8 +33,8 @@ class Environnement{
     int W();
     int H();
     int T();
-    int Ainit();
-    int Tfinal();
+    float Ainit();
+    float Tfinal();
   
 //=====================================================================================================
 //                                                    SETTERS
@@ -60,11 +60,12 @@ class Environnement{
     int W_;
     int H_;
     int T_;
-    int Ainit_;
-    int Tfinal_;
+    float D_;
+    float Ainit_;
+    float Tfinal_;
     
 
-}
+};
 
 
 
