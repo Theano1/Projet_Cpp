@@ -50,7 +50,7 @@ class Cell
     virtual void Describe()=0; //Describe Cell : cette méthode est virtuelle pure
     int Death(); // return 1 if the Cell live and 0 if the Cell die with a probability p_death
     int Mute(); // return 1 (cell doesn't mute) or 0 (cell mute) with probability p_mutation
-    Bacterie* Division()=0; // divide concentrations of the cell by 2 ; return a pointer on the same cell
+    virtual Cell* Division()=0; // divide concentrations of the cell by 2 ; return a pointer on the same cell
 
     
     
@@ -81,7 +81,7 @@ class Cell
     
 
 
-}
+};
 
 #endif // CELL_H
 

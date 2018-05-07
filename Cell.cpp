@@ -38,7 +38,7 @@ Cell::~Cell(){}
 //    PUBLIC METHODS
 //==============================
 
-int Bacterie::Death(){
+int Cell::Death(){
     
     float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
     
@@ -55,7 +55,7 @@ int Bacterie::Death(){
     }
 }
 
-int Bacterie::Mute(){
+int Cell::Mute(){
     
     
     float nb =  (rand()%(1000))/1000.0; //random number between 0 et 1
