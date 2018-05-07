@@ -53,20 +53,22 @@ class Cell
     //==============================
     
     //==============================
-    //    ATTRIBUTES
+    // DECLARATION STATIC ATTRIBUTES
     //==============================
+
     static float p_death; // death probability (=0.02)
     static float p_mutation; // mutation probability (0)
     static float W_min; // minimum fitness (=0.001)
-    static float rAA_, rAB_, rBB_, rBC_; //Metabolism rates
-
     
+    //==============================
+    //    ATTRIBUTES
+    //==============================
+
     // Concentration of metabolites inside the Cell
     float A_int;
     float B_int;
     float C_int;
-    
-    char type; // type de bacterie (A ou B)
+    char type; // Cell type (A or B)
 
 
     
