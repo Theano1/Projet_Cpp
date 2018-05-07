@@ -30,6 +30,9 @@ class Cell
     //They are virtual functions because they may, in a sense, be used before they are defined.
     
     virtual char Gettype();
+    
+    
+    //fonction virtuelles pures : dans la classe Cell, ces fonction n'existe pas mais dans toutes les classes filles de Cell (Cell S et Cell L), il y a ces fonctions nommées GetA_int(), GetB_int()... qui renvoient un float mais ne prennent aucun argument
     virtual float GetA_int()=0;
     virtual float GetB_int()=0;
     virtual float GetC_int()=0;
@@ -42,10 +45,12 @@ class Cell
     //==============================
     //    PUBLIC METHODS
     //==============================
-    virtual void Describe()=0; //Describe Cell
-    virtual int Death(); // return 1 if the Cell live and 0 id the Cell die with a probability p_death
-    virtual int Mute(); // return 1 (cell doesn't mute) or 0 (cell mute) with probability p_mutation
-    virtual Bacterie* Division()=0; // divide concentrations of the cell by 2 ; return a pointer on the same cell
+    //
+    
+    virtual void Describe()=0; //Describe Cell : cette méthode est virtuelle pure
+    int Death(); // return 1 if the Cell live and 0 if the Cell die with a probability p_death
+    int Mute(); // return 1 (cell doesn't mute) or 0 (cell mute) with probability p_mutation
+    Bacterie* Division()=0; // divide concentrations of the cell by 2 ; return a pointer on the same cell
 
     
     

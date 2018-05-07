@@ -38,24 +38,47 @@ Cell::~Cell(){}
 //    PUBLIC METHODS
 //==============================
 
+int Bacterie::Death(){
+    
+    float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
+    
+    if(nb<p_death){ // if nb is less than p_death
+        
+        return 0; // The cell die
+        
+    }
+    
+    else{ //if nb is more than p_death
+        
+        return 1;// The cell live
+        
+    }
+}
+
+int Bacterie::Mute(){
+    
+    
+    float nb =  (rand()%(1000))/1000.0; //random number between 0 et 1
+    
+    if (nb<p_mutation){ // if nb is less than p_mutation
+        
+        return 0; // The cell mute
+    }
+    
+    else{ // if nb is more than p_mutation
+        
+        return 1; //The cell doesn't mute
+    }
+    
+}
+
+
 //==============================
 //    GETTERS
 //==============================
 
 char Cell::Gettype(){
     return type;
-}
-
-float Cell::GetA_int() {
-    return A_int;
-}
-
-float Cell::GetB_int() {
-    return B_int;
-}
-
-float Cell::GetC_int() {
-    return C_int;
 }
 
 //==============================
