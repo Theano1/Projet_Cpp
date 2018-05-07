@@ -27,6 +27,8 @@ class Cell
     //==============================
     //    GETTERS
     //==============================
+    //They are virtual functions because they may, in a sense, be used before they are defined.
+    
     virtual char Gettype();
     virtual float GetA_int()=0;
     virtual float GetB_int()=0;
@@ -68,7 +70,7 @@ class Cell
     float A_int;
     float B_int;
     float C_int;
-    char type; // Cell type (A or B)
+    char type; // Cell type (L or S)
 
 
     
