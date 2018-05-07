@@ -40,9 +40,9 @@ class String{
     //                                          SETTERS
     // =========================================================================================
     
-    bool set_empty(bool empt);
-    float set_Aout(float c);
-    float set_Bout(float c);
+    void set_empty(bool empt);
+    void set_Aout(float c);
+    void set_Bout(float c);
     
     
     
