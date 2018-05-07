@@ -1,18 +1,78 @@
 //This is the header file Cell.h.
 
+
+#ifndef CELL_H
+#define CELL_H
+
+
 #include <iostream>
 using namespace std;
 
-class Cell {
+class Cell
+{
+    public:
+    //==============================
+    //    CONSTRUCTORS
+    //==============================
 
-protected:
-	float _Aint;
-	float _Bint;
-	float _Cint;
-	float _Pmut;
-	float _Wmin;
-	float _Pdeath;
-	float _Raa, _Rab, _Rbb, _Rbc
+    Cell();
+    Cell(float A_int, float B_int, float C_int);
+    
+    //==============================
+    //    DESTRUCTOR
+    //==============================
+    
+    virtual ~Cell();
+    
+    //==============================
+    //    GETTERS
+    //==============================
+    virtual char Gettype();
+    virtual float GetA_int()=0;
+    virtual float GetB_int()=0;
+    virtual float GetC_int()=0;
+    virtual float& Getw()=0;
+    
+    //==============================
+    //    SETTERS
+    //==============================
+    
+    //==============================
+    //    PUBLIC METHODS
+    //==============================
+    virtual void Describe()=0; //Describe Cell
+    virtual int Death(); // return 1 if the Cell live and 0 id the Cell die with a probability p_death
+    virtual int Mute(); // return 1 (cell doesn't mute) or 0 (cell mute) with probability p_mutation
+    virtual Bacterie* Division()=0; // divide concentrations of the cell by 2 ; return a pointer on the same cell
+
+    
+    
+    protected:
+    //==============================
+    //    PROTECTED METHODS
+    //==============================
+    
+    //==============================
+    //    ATTRIBUTES
+    //==============================
+    static float p_death; // death probability (=0.02)
+    static float p_mutation; // mutation probability (0)
+    static float W_min; // minimum fitness (=0.001)
+    static float rAA_, rAB_, rBB_, rBC_; //Metabolism rates
+
+    
+    // Concentration of metabolites inside the Cell
+    float A_int;
+    float B_int;
+    float C_int;
+    
+    char type; // type de bacterie (A ou B)
+
+
+    
 
 
 }
+
+#endif // CELL_H
+
