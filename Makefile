@@ -9,3 +9,6 @@ Case.o:Case.cpp
 
 Environnement.o:Environnement.cpp
 	g++ -o Environnement.o -c Environnement.cpp
+	
+Cell.o:Cell.cpp
+	g++ -o Cell.o -c Cell.cpp

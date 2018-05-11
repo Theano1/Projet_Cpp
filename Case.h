@@ -7,6 +7,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <vector>
 
 
 class Case{
@@ -16,7 +17,9 @@ class Case{
     // =========================================================================================
     //                                       CONSTRUCTORS
     // =========================================================================================
-    Case(int x, int y, float A);
+
+    Case(vector <float> org, char c);
+    Case(float a, char c);
   
     // =========================================================================================
     //                                        DESTRUCTORS
@@ -29,21 +32,32 @@ class Case{
     //                                          GETTERS
     // =========================================================================================
   
-    float Aout();
-    float Bout();
-    int x();
-    int y();
-    bool empty();
+    vector <float> org_out();
+    Cell cell();
+    float Pmut();
+
     
   
     // =========================================================================================
     //                                          SETTERS
     // =========================================================================================
     
-    void set_empty(bool empt);
-    void set_Aout(float c);
-    void set_Bout(float c);
+
+    void set_cell(char c);
+    void set_org_out(vector <float> org);
     
+    
+    
+    // =========================================================================================
+    //                                          METHODS
+    // =========================================================================================
+    
+    
+    void reset_case(float Ainit);
+    float fitness();
+    bool IsEmpty();
+    char IsA();
+    void divison(Case* c);
     
     
   protected:
@@ -52,12 +66,10 @@ class Case{
     //                                          ATTRIBUTS
     // =========================================================================================
     
-    float Aout_;
-    float Bout_;
-    int x_;
-    int y_;
-    bool empty_;
-  
+    vector <float> org_out_;
+    Cell* cell;
+    static float Wmin_;
+    static float Pmut_;
 };
 
 
