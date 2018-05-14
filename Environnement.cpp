@@ -56,11 +56,13 @@ Environnement::~Environnement(){
 void Environnement::diffusion(){
   int x=0;
   int y=0;
+  int k;
+  int l;
   for (int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++i){
       float a=gride_[i][j].org_out()[0];
-      float b=gride_[i][j] ->org_out()[1];
-      float c=gride_[i][j] ->org_out()[2];
+      float b=gride_[i][j].org_out()[1];
+      float c=gride_[i][j].org_out()[2];
       for (int k=-1;k<2; ++k){
         for (int l=-1; l<2; ++k){
           if (k!=0 and l!=0){
@@ -85,17 +87,17 @@ void Environnement::diffusion(){
               y=j+l;       
             }  
             
-            a=a+D_*gride_[x+k][y+l]->org_out()[0];
-            b=b+D_*gride_[x+k][y+l]->org_out()[1];
-            c=c+D_*gride_[x+k][y+l]->org_out()[2];      
+            a=a+D_*gride_[x+k][y+l].org_out()[0];
+            b=b+D_*gride_[x+k][y+l].org_out()[1];
+            c=c+D_*gride_[x+k][y+l].org_out()[2];      
             
                              
           }       
         }
       }
-      a=a-9*D_*gride_[x+k][y+l]->org_out()[0];
-      b=b-9*D_*gride_[x+k][y+l]->org_out()[1];
-      c=c-9*D_*gride_[x+k][y+l]->org_out()[2];
+      a=a-9*D_*gride_[x+k][y+l].org_out()[0];
+      b=b-9*D_*gride_[x+k][y+l].org_out()[1];
+      c=c-9*D_*gride_[x+k][y+l].org_out()[2];
        
     }
   }
