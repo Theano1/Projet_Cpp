@@ -47,7 +47,7 @@ public:
     
     virtual void Describe();
     virtual int Death();
-    virtual Cell* Division();
+    //virtual Cell* Division();
     virtual int Mute();
     static int nb_L();
     virtual float absorb(float c, float h);

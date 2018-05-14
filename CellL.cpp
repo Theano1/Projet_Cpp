@@ -61,7 +61,7 @@ void CellL::Describe(){
 	cout<< "Cette bactérie de type "<<type<<" présente une concentration interne en A: "<<A_int<<", en B: "<<B_int<<" et en C: "<<C_int<<" ainsi qu'une fitness de "<<w<<endl;
 }
 
-Cell* CellL::Division(){
+/*Cell* CellL::Division(){
 
 	A_int = A_int/2.0; //child get the half of their parents' concentration
 	B_int = B_int/2.0;
@@ -70,7 +70,7 @@ Cell* CellL::Division(){
 	CellL* newcell = new CellL(A_int,B_int,C_int); //new L bacterie with new concentrations intra after division 
 	return newcell;
 }
-
+*/
 
 
 int CellL::Death(){return Cell::Death();}
