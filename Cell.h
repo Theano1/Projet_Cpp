@@ -5,8 +5,8 @@
 #define CELL_H
 
 
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 class Cell
 {
@@ -76,11 +76,6 @@ class Cell
     float B_int;
     float C_int;
     char type; // Cell type (L or S)
-
-
-    
-
-
 };
 
 #endif // CELL_H

@@ -9,7 +9,7 @@
 #include "CellL.h"
 #include "CellS.h"
 
-using namespace std;
+//using namespace std;
 
 //====================================================================================================
 //                                                    CONSTRUCTOR

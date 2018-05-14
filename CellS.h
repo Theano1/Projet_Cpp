@@ -3,8 +3,8 @@
 //
 //
 
-#ifndef CellS_h
-#define CellS_h
+#ifndef CELLS_H
+#define CELLS_H
 
 //==============================
 //    INCLUDES
@@ -34,7 +34,7 @@ public:
     virtual float GetB_int();
     virtual float GetC_int();
     virtual char Gettype();
-    virtual float& Getw();
+    //virtual float& Getw();
     
     
     //==============================
@@ -67,8 +67,8 @@ protected:
     //==============================
     float Rbb; //absorption rate
     float Rbc; //conversion rate
-    float& w; //fitness
+    //float& w; //fitness
     static int count_S; //nb of CellS
     
 
-#endif /* CellS_h */
+#endif /* CELLS_H */

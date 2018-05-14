@@ -2,8 +2,8 @@
 //CellL.h
 
 
-#ifndef CellL
-#define CellL
+#ifndef CELLL_H
+#define CELLL_H
 //==============================
 //    INCLUDES
 //==============================
@@ -11,7 +11,7 @@
 #include "Cell.h"
 
 class CellL: public Cell{
-    
+
 public:
     //==============================
     //    CONSTRUCTORS
@@ -82,5 +82,5 @@ protected:
     //==============================
 };
 
-#endif // CellL
+#endif // CELLL_H
 

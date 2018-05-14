@@ -1,13 +1,16 @@
+
+
+#include "Environnement.h"
+
+
+};
 #include <iostream>
 #include <stdio.h>
-#include "Case.h"
-#include "Environnement.h"
 #include "Cell.h"
 #include "CellS.h"
 #include "CellL.h"
-
+#include "Case.h"
 using namespace std;
-
 
 int main() {
 
@@ -21,3 +24,4 @@ int main() {
   
   return 0;
 }
+
