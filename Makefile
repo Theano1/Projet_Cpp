@@ -1,4 +1,4 @@
-OPTS = -g -Wall -Wextra -g3 -O0 -std=gnu++0x -fopenmp 
+OPTS = -g -Wall -Wextra -g3 -O0 -std=gnu++0x -fopenmp -Wc++11
 
 main: main.o Environnement.o Case.o
 	g++ -o main main.o Environnement.o Case.o Cell.o CellS.o CellL.o 

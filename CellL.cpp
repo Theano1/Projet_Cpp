@@ -85,7 +85,7 @@ float CellL::GetC_int(){return C_int;}
 
 float& CellL::Getw(){return w;}
 
-int CellL::nombre_L()
+int CellL::nb_L()
 {
     return count_L;   // renvoie la valeur du count
 }
