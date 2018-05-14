@@ -31,7 +31,7 @@ public:
     virtual float GetB_int();
     virtual float GetC_int();
     virtual char Gettype();
-    virtual float& Getw();
+    //virtual float& Getw();
     
     //==============================
     //    SETTERS
@@ -49,7 +49,7 @@ public:
     virtual int Death();
     virtual Cell* Division();
     virtual int Mute();
-    static int nombre_L();
+    static int nb_L();
     virtual float absorb(float c, float h);
     
     
@@ -64,7 +64,7 @@ protected:
     //==============================
     float Raa;//  absorption rate
     float Rab;// conversion rate
-    float& w=B_int;//fitness
+    //float& w=B_int;//fitness
     static int count_L;////nb of CellL
     
     

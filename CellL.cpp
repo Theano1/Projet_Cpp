@@ -39,6 +39,8 @@ CellL::CellL(float a, float b, float c){
   B_int=b;
   C_int=c;
 
+  //w=B_int;
+
   Raa=0.1;
   Rab=0.1;
 
@@ -83,7 +85,7 @@ float CellL::GetB_int(){return B_int;}
 
 float CellL::GetC_int(){return C_int;}
 
-float& CellL::Getw(){return w;}
+//float& CellL::Getw(){return w;}
 
 int CellL::nb_L()
 {

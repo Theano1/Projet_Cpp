@@ -38,7 +38,7 @@ CellS::CellS(float a, float b, float c){
     A_int=a;
     B_int=b;
     C_int=c;
-    w=C_int;
+    //w=C_int;
     
     Rbb=0.1;
     Rbc=0.1;
@@ -85,7 +85,7 @@ float CellS::GetB_int(){return B_int;}
 
 float CellS::GetC_int(){return C_int;}
 
-float& CellS::Getw(){return w;}
+//float& CellS::Getw(){return w;}
 
 int CellS::nb_S()
 {
