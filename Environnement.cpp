@@ -56,7 +56,7 @@ Environnement::~Environnement(){
 //====================================================================================================
 //                                                    METHODS
 //===================================================================================================
-/*   
+ 
 void Environnement::diffusion(){
   int x=0;
   int y=0;
@@ -107,7 +107,7 @@ void Environnement::diffusion(){
   }
 }
 
-*/
+
 
 //fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
 //c1: mother and c2: daugther
@@ -225,7 +225,7 @@ void Environnement::competition(){
  
       
 
-/*   
+
 //Filling the gride_
 
 void Environnement::filling_gride_(Case* gride_){
@@ -266,7 +266,7 @@ string Environnement::state(){
     return "Cohabitation";
   }
 }
-*/
+
 
 
 

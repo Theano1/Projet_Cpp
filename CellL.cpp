@@ -58,7 +58,7 @@ CellL::~CellL(){
 //==============================
 
 void CellL::Describe(){
-	cout<< "Cette bactérie de type "<<type<<" présente une concentration interne en A: "<<A_int<<", en B: "<<B_int<<" et en C: "<<C_int<<" ainsi qu'une fitness de "<<w<<endl;
+	cout<< "Cette bactérie de type "<<type<<" présente une concentration interne en A: "<<A_int<<", en B: "<<B_int<<" et en C: "<<C_int<<endl;
 }
 
 /*Cell* CellL::Division(){
