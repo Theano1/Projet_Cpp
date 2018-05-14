@@ -60,7 +60,7 @@ vector <float> Case::org_out(){
   return org_out_;
 }
 
-Cell Case::cell(){
+Cell* Case::cell(){
   return cell_;
 }
 
