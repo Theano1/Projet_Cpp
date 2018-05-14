@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-
+#include "Cell.h"
 using namespace std;
 
 class Case{
