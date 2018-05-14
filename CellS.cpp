@@ -13,7 +13,7 @@ using std::endl;
 //==============================
 //  STATIC ATTRIBUTES DEFINITION
 //==============================
-int CellS::compteur_S = 0; //On initialise notre compteur à 0
+int CellS::count_S = 0; //On initialise notre count à 0
 
 //==============================
 //    CONSTRUCTORS
@@ -21,7 +21,7 @@ int CellS::compteur_S = 0; //On initialise notre compteur à 0
 
 CellS::CellS(){
     
-    compteur_S++;
+    count_S++;
     
     type='S';
     
@@ -31,7 +31,7 @@ CellS::CellS(){
 }
 CellS::CellS(float a, float b, float c){
     
-    compteur_S++;
+    count_S++;
     
     type='S';
     
@@ -49,7 +49,7 @@ CellS::CellS(float a, float b, float c){
 //==============================
 
 CellS::~CellS(){
-    compteur_S--;
+    count_S--;
 }
 
 //==============================
@@ -88,7 +88,7 @@ float& CellS::Getw(){return w;}
 
 int CellS::nombre_S()
 {
-    return compteur_S;   //On renvoie simplement la valeur du compteur
+    return count_S;  
 }
 
 float CellS::absorb(float c, float h){ //système qui régit le réseau métabolique des individus de type Gb

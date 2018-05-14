@@ -65,13 +65,10 @@ protected:
     //==============================
     //    ATTRIBUTES
     //==============================
-    float Rbb; //taux d'absorption
-    float Rbc; //taux de conversion
+    float Rbb; //absorption rate
+    float Rbc; //conversion rate
     float& w=C_int; //fitness
-    static int compteur_S; //nombre de bactérie CellS
+    static int count_S; //nb of CellS
     
-
-
-
 
 #endif /* CellS_h */
