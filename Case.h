@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 
-class String{
+class Case{
 
   public:
   
