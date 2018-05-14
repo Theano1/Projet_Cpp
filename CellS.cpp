@@ -57,7 +57,7 @@ CellS::~CellS(){
 //    PUBLIC METHODS
 //==============================
 
-Cell* CellS::Division(){
+/*Cell* CellS::Division(){
     
     A_int = A_int/2.0; //les individus fils héritent de la moitié des concentrations internes du parent
     B_int = B_int/2.0;
@@ -67,6 +67,7 @@ Cell* CellS::Division(){
     return newcell;
     
 }
+ */
 
 void CellS::Describe(){
     cout<< "Cette bactérie de type " <<type<<" présente une concentration interne en A: "<<A_int<<", en B: "<<B_int<<" et en C: "<<C_int<<endl<<" ainsi qu'une fitness de "<<w<<endl;

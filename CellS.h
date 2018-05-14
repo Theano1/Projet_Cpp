@@ -50,7 +50,7 @@ public:
     //==============================
     
     virtual void Describe();
-    virtual Cell* Division();
+    //virtual Cell* Division();
     virtual int Death();
     virtual int Mute();
     static int nb_S();

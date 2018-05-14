@@ -6,7 +6,7 @@
 #include "CellS.h"
 #include "CellL.h"
 
-using namespace std;
+
 
 
 int main() {
