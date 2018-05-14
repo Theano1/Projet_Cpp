@@ -11,7 +11,6 @@
 #include "CellL.h"
 #include "Case.h"
 using namespace std;
-
 int main() {
 
   //--------------------TEST CASE------------------------
