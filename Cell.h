@@ -16,7 +16,7 @@ class Cell
     //==============================
 
     Cell();
-    Cell(float A_int, float B_int, float C_int);
+    Cell(float a, float b, float c);
     
     //==============================
     //    DESTRUCTOR
