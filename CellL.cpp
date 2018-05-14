@@ -14,7 +14,6 @@ using std::endl;
 //==============================
 int CellL::count_L = 0;  //initialization of count to 0
 
-
 //==============================
 //    CONSTRUCTORS
 //==============================
