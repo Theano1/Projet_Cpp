@@ -60,7 +60,7 @@ vector <float> Case::org_out(){
   return org_out_;
 }
 
-Cell Case::cell(){
+Cell* Case::cell(){
   return cell_;
 }
 
@@ -130,50 +130,6 @@ char Case::IsA(){
     return 'L';
   else if (this -> cell() -> type() == 'S'){
     return 'S';
-}
-
-
-//fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
-void Case::divison(Case* c){
-  char t;
-  //first we determine the mother's type
-  if (this -> gettype() == 'L'){
-    t = 'L';
-  }
-  
-  if (this -> gettype() == 'S'){
-    t = 'S';
-  }
-  
-  
-  
-  //this is for the cell in the box
-  double rand1 = (double) rand()/RAND_MAX;
-  if ( rand1 <= Pmut_){
-    delete[] cell_;  
-    if (t == 'L'){
-      cell_ = new Cell(S);
-    }
-    else {
-      cell_ = new Cell(L);
-    } 
-  }
-  
-  //this is for the new cell that is going in the empty box
-  double rand2 = (double) rand()/RAND_MAX;
-  if ( rand2 <= c -> Pmut()){
-    if (t == 'L'){
-      c -> cell_ = new Cell(S);
-    }
-    else {
-      c -> cell_ = new Cell(L);
-    } 
-  }
-  
-  //distribution of the molecules to the dauthers
-  org_out_ = {org_out_[0]/2, org_out_[1]/2, org_out_[2]/2};
-  c -> org_out() = {org_out_[0]/2, org_out_[1]/2, org_out_[2]/2};  
-
 }
 
 
