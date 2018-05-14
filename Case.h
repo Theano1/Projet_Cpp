@@ -6,9 +6,11 @@
 // ===========================================================================================
 
 #include <cstdio>
+#include <iostream>
 #include <cstdlib>
 #include <vector>
 
+using namespace std;
 
 class Case{
 
@@ -20,6 +22,7 @@ class Case{
 
     Case(vector <float> org, char c);
     Case(float a, char c);
+    Case();
   
     // =========================================================================================
     //                                        DESTRUCTORS
@@ -57,7 +60,6 @@ class Case{
     float fitness();
     bool IsEmpty();
     char IsA();
-    void divison(Case* c);
     
     
   protected:

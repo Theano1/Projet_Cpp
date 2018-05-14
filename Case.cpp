@@ -23,7 +23,7 @@ float Case::Pmut_ = 0.0;
 //constructeur qui prend en paramètres les organites externes et le type de la cellule
 
 Case::Case(vector <float> org, char c){
-  org_out = {org[0],org[1],org[2]};
+  org_out_ = {org[0],org[1],org[2]};
   cell_ = new Cell(c);
   
 }
@@ -31,9 +31,14 @@ Case::Case(vector <float> org, char c){
 //constructeur qui prend en parametre la quantité initiale de glucose et le type de la cellule
 
 Case::Case(float a, char c){
-  org_out = {a,.0,.0};
+  org_out_ = {a,.0,.0};
   cell_ = new Cell(c);
   
+}
+
+Case::Case(){
+  org_org_ = {.0, .0, .0};
+  cell_ = nullptr;
 }
 
 
@@ -43,7 +48,7 @@ Case::Case(float a, char c){
 
 
 Case::~Case(){
-  cell_ = delete;  
+  delete[] cell_;  
 }
 
 // ===========================================================================================
@@ -70,7 +75,7 @@ float Case::Pmut(){
 
 
 void Case::set_cell(char c){
-  cell_ = delete;
+  delete[] cell_;  
   cell_ = new Cell(c); 
 }
 
@@ -128,25 +133,41 @@ char Case::IsA(){
 }
 
 
-
 //fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
 void Case::divison(Case* c){
-  //first we remplace the dauthers cell's phenotype if there is a mutation
-  vector<char> phen ={'L','S'};
+  char t;
+  //first we determine the mother's type
+  if (this -> gettype() == 'L'){
+    t = 'L';
+  }
+  
+  if (this -> gettype() == 'S'){
+    t = 'S';
+  }
+  
+  
   
   //this is for the cell in the box
   double rand1 = (double) rand()/RAND_MAX;
   if ( rand1 <= Pmut_){
-    int r=rand()%2 +0;
-    cell_ = delete;
-    cell_ = new Cell(phen[r]); 
+    delete[] cell_;  
+    if (t == 'L'){
+      cell_ = new Cell(S);
+    }
+    else {
+      cell_ = new Cell(L);
+    } 
   }
   
   //this is for the new cell that is going in the empty box
   double rand2 = (double) rand()/RAND_MAX;
   if ( rand2 <= c -> Pmut()){
-    int r=rand()%2 +0;
-    c -> cell() = new Cell(phen[r]); 
+    if (t == 'L'){
+      c -> cell_ = new Cell(S);
+    }
+    else {
+      c -> cell_ = new Cell(L);
+    } 
   }
   
   //distribution of the molecules to the dauthers
@@ -154,5 +175,6 @@ void Case::divison(Case* c){
   c -> org_out() = {org_out_[0]/2, org_out_[1]/2, org_out_[2]/2};  
 
 }
+
 
 
