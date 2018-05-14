@@ -14,9 +14,9 @@ using namespace std;
 // Every static variable must be initialized outside the class definition. Also, a static variable cannot be initialized more than once
 
 //==============================
-float Cell::p_death =0.02; // death probability (=0.02)
-float Cell::p_mutation=0; // mutation probability (0)
-float Cell::W_min=0.001; // minimum fitness (=0.001)
+//float Cell::p_death =0.02; // death probability (=0.02)
+//float Cell::p_mutation=0; // mutation probability (0)
+//float Cell::W_min=0.001; // minimum fitness (=0.001)
 
 //==============================
 //    CONSTRUCTORS
@@ -37,7 +37,7 @@ Cell::~Cell(){}
 //==============================
 //    PUBLIC METHODS
 //==============================
-
+/*
 int Cell::Death(){
     
     float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
@@ -71,7 +71,7 @@ int Cell::Mute(){
     }
     
 }
-
+*/
 
 //==============================
 //    GETTERS

@@ -31,6 +31,7 @@ public:
     virtual float GetB_int();
     virtual float GetC_int();
     virtual char Gettype();
+    static int nb_L();
     //virtual float& Getw();
     
     //==============================
@@ -46,10 +47,10 @@ public:
     //==============================
     
     virtual void Describe();
-    virtual int Death();
+    //virtual int Death();
     virtual Cell* Division();
-    virtual int Mute();
-    static int nb_L();
+    //virtual int Mute();
+
     virtual float absorb(float c, float h);
     
     
