@@ -17,7 +17,7 @@ class Environnement{
 //                                                    CONSCTRUCTORS
 //=====================================================================================================
 
-    Environnement();
+    Environnement(int W, int H, float D, int T, float Ainit, float Tfinal);
   
 //=====================================================================================================
 //                                                    DESTRUCTOR
@@ -47,6 +47,10 @@ class Environnement{
   
     void diffusion();
     void competition();
+    void filling_gride(Case* gride);
+    void reset_grid();
+    string state();
+    void divison(Case* c);
 
 
   protected:
