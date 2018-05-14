@@ -21,10 +21,11 @@ Environnement::Environnement(int W, int H, float D, int T, float Ainit, float Tf
   int nb_S_= (W_*H_)/2;
   int nb_L_= (W_*H_)/2;
   
-  //Gride creation
-  gride = Case* new line[H_];
+  
+  //gride_ creation
+  gride_ = new Case* [H_];
   for (int i=0; i<H_; ++i){
-    gride[i]= Case* new col[W_];
+    gride_[i]= new Case [W_];
   }
       
    
@@ -36,8 +37,8 @@ Environnement::Environnement(int W, int H, float D, int T, float Ainit, float Tf
 
 Environnement::~Environnement(){
   for(int i=0; i<H_; ++i){
-    for (int j=0; j<W_, ++j){
-      gride[i][j] = delete;
+    for (int j=0; j<W_; ++j){
+      delete[] &gride_[i][j];
     }
   }
 }
@@ -53,16 +54,18 @@ Environnement::~Environnement(){
 //===================================================================================================
    
 void Environnement::diffusion(){
+  int x=0;
+  int y=0;
+  int k;
+  int l;
   for (int i=0; i<H_; ++i){
-    for (int j=0; j<W; ++i){
-      float a=gride[i][j].org_out_[0];
-      float b=gride[i][j].org_out_[1];
-      float b=gride[i][j].org_out_[2];
-      for (int k=-1;k<2, ++k){
-        for (int l=-1; l<2, ++k){
+    for (int j=0; j<W_; ++i){
+      float a=gride_[i][j].org_out()[0];
+      float b=gride_[i][j].org_out()[1];
+      float c=gride_[i][j].org_out()[2];
+      for (int k=-1;k<2; ++k){
+        for (int l=-1; l<2; ++k){
           if (k!=0 and l!=0){
-            int x=0;
-            int y=0;
               
               //Thor formation
             if(i+k>H_-1){
@@ -84,24 +87,24 @@ void Environnement::diffusion(){
               y=j+l;       
             }  
             
-            a=a+D_*gride[x+k][y+l].org_out_[0];
-            b=b+D_*gride[x+k][y+l].org_out_[1];
-            c=c+D_*gride[x+k][y+l].org_out_[2];      
+            a=a+D_*gride_[x+k][y+l].org_out()[0];
+            b=b+D_*gride_[x+k][y+l].org_out()[1];
+            c=c+D_*gride_[x+k][y+l].org_out()[2];      
             
                              
           }       
         }
       }
-      a=a-9*D_*gride[x+k][y+l].org_out_[0];
-      b=b-9*D_*gride[x+k][y+l].org_out_[1];
-      c=c-9*D_*gride[x+k][y+l].org_out_[2];
+      a=a-9*D_*gride_[x+k][y+l].org_out()[0];
+      b=b-9*D_*gride_[x+k][y+l].org_out()[1];
+      c=c-9*D_*gride_[x+k][y+l].org_out()[2];
        
     }
   }
 }
 
 
-
+/*
 void Environnement::competition(){
   vector<int> length;
   vector<int> width;
@@ -116,7 +119,7 @@ void Environnement::competition(){
 
   for (vector<int>::iterator i = length.begin() ; i != length.end(); ++i){
     for (vector<int>::iterator j = witdh.begin() ; j != width.end(); ++j){
-      if (gride[i][j].IsEmpty == false){
+      if (gride_[i][j].IsEmpty == false){
         for (int k=-1;k<2, ++k){
           for (int l=-1; l<2, ++k){
             if (k!=0 and l!=0){
@@ -142,18 +145,18 @@ void Environnement::competition(){
               else{
                 y=j+l;
               }               
-              if (gride[i][j].IsEmpty== true){
-                int fit=gride[i][j].fitness()
-                for (int k=-1;k<2, ++k){
-                  for (int l=-1; l<2, ++k){
-                    if (fit<grille[k+i][l+j].fitness(){
+              if (gride_[i][j].IsEmpty== true){
+                int fit=gride_[i][j].fitness()
+                for (int k=-1;k<2; ++k);{
+                  for (int l=-1; l<2; ++k){
+                    if (fit<grille[k+i][l+j].fitness()){
                       fit = grille[k+i][l+j].fitness();
                       x=k+i;
                       y=l+j;
                     }
                   }
                 }
-                gride[x][y].division(*gride[i][j]);
+                gride_[x][y].division(*gride_[i][j]);
                            
               }
             }
@@ -167,9 +170,9 @@ void Environnement::competition(){
       
 
    
-//Filling the gride
+//Filling the gride_
 
-void Environnement::filling_gride(Case* gride){
+void Environnement::filling_gride_(Case* gride_){
   vector<char> vec((H_*W_)/2, 'L');
   vector<char> vec1((H_*W_)/2,'S');
   vec.insert(vec.end(),vec1.begin(), vec1.end());
@@ -177,11 +180,11 @@ void Environnement::filling_gride(Case* gride){
   int count=0;
   for (int i=0; i<H_; ++i){
     for (int j=0; j<W; ++i){
-        gride[i][j]= Case(A_init, vec[count]) ; 
+        gride_[i][j]= Case(A_init, vec[count]) ; 
         count += 1;
       }
     }
-  }
+  
 }
    
 
@@ -189,8 +192,8 @@ void Environnement::filling_gride(Case* gride){
 //Reset the environment
 void Environnement::reset_grid(){
   for(int i=0; i<H_; ++i){
-    for (int j=0; j<W_, ++j){      
-      gride[i][j].reset_case(Ainit_);
+    for (int j=0; j<W_; ++j){      
+      gride_[i][j].reset_case(Ainit_);
     }
   }
 }
@@ -262,8 +265,10 @@ void Case::divison(Case* c){
 
 }
   
-  return 0;
-}
+  */
+
+
+
 
    
    

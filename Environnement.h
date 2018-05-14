@@ -7,7 +7,10 @@
 
 #include <cstdio>
 #include <cstdlib>
-
+#include "Case.h"
+#include <string>
+#include <iostream>
+using namespace std;
 
 class Environnement{
 
@@ -35,6 +38,7 @@ class Environnement{
     int T();
     float Ainit();
     float Tfinal();
+    
   
 //=====================================================================================================
 //                                                    SETTERS
@@ -67,6 +71,7 @@ class Environnement{
     float D_;
     float Ainit_;
     float Tfinal_;
+    Case** gride_;
     
 
 };
