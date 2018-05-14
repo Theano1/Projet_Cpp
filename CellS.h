@@ -53,7 +53,7 @@ public:
     virtual Cell* Division();
     virtual int Death();
     virtual int Mute();
-    static int nombre_S();
+    static int nb_S();
     virtual float absorb(float c, float h);
     
     
@@ -67,7 +67,7 @@ protected:
     //==============================
     float Rbb; //absorption rate
     float Rbc; //conversion rate
-    float& w=C_int; //fitness
+    float& w; //fitness
     static int count_S; //nb of CellS
     
 
