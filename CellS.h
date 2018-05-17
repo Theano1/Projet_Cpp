@@ -19,22 +19,15 @@ public:
     //    CONSTRUCTORS
     //==============================
     CellS();
-    CellS(float a, float b, float c);
+    CellS(vector <float> org_int);
     
     
-    //==============================
-    //    DESTRUCTOR
-    //==============================
-    virtual ~CellS();
     
     //==============================
     //    GETTERS
     //==============================
-    virtual float GetA_int();
-    virtual float GetB_int();
-    virtual float GetC_int();
+    vector <float> getorg_int();
     virtual char Gettype();
-    virtual float& Getw();
     
     
     //==============================
@@ -50,11 +43,7 @@ public:
     //==============================
     
     virtual void Describe();
-    virtual Cell* Division();
-    virtual int Death();
-    virtual int Mute();
-    static int nombre_S();
-    virtual float absorb(float c, float h);
+    virtual float absorb(float out);
     
     
 protected:
@@ -67,8 +56,6 @@ protected:
     //==============================
     float Rbb; //absorption rate
     float Rbc; //conversion rate
-    float& w=C_int; //fitness
-    static int count_S; //nb of CellS
-    
+
 
 #endif /* CellS_h */

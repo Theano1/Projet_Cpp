@@ -9,6 +9,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include "Cell.h"
+#include "CellL.h"
+#include "CellS.h"
+
 
 using namespace std;
 
@@ -36,7 +40,7 @@ class Case{
     // =========================================================================================
   
     vector <float> org_out();
-    Cell cell();
+    Cell* cell();
     float Pmut();
 
     
@@ -69,7 +73,7 @@ class Case{
     // =========================================================================================
     
     vector <float> org_out_;
-    Cell* cell;
+    Cell* cell_;
     static float Wmin_;
     static float Pmut_;
 };
