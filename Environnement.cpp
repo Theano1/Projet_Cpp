@@ -4,8 +4,12 @@
 #include "Case.h"
 #include <vector>
 #include <string>
+#include <algorithm>
+#include "Cell.h"
+#include "CellL.h"
+#include "CellS.h"
 
-using namespace std;
+//using namespace std;
 
 //====================================================================================================
 //                                                    CONSTRUCTOR
@@ -52,7 +56,7 @@ Environnement::~Environnement(){
 //====================================================================================================
 //                                                    METHODS
 //===================================================================================================
-   
+ 
 void Environnement::diffusion(){
   int x=0;
   int y=0;
@@ -104,59 +108,111 @@ void Environnement::diffusion(){
 }
 
 
-/*
+
+//fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
+//c1: mother and c2: daugther
+void Environnement::divison(Case* c1, Case* c2){
+  char t;
+  //first we determine the mother's type
+  if (c1->cell_->Gettype() == 'L'){
+    t = 'L';
+  }
+  
+  if (c1->cell_->Gettype() == 'S'){
+    t = 'S';
+  }
+  
+  
+  //this is for the cell in the box
+  double rand1 = (double) rand()/RAND_MAX;
+  if ( rand1 <= c1->Pmut()){
+    c1->cell_ = delete;
+    if (t == 'L'){
+      c1->cell_ = new CellS();
+      nb_L_ -=1;
+      nb_S_ +1;
+    }
+    else {
+      c1->cell_ = new CellL();
+      nb_S_ -= 1;
+      nb_L_ += 1;
+    } 
+  }
+  
+  //this is for the new cell that is going in the empty box
+  double rand2 = (double) rand()/RAND_MAX;
+  if ( rand2 <= c -> c2->Pmut()){
+    if (t == 'L'){
+      c2->cell_ = new CellS();
+      nb_S_ +=1;
+    }
+    else {
+      c2->cell_ = new CellL();
+      nb_L_ +=1;
+    } 
+  }
+  
+  //distribution of the molecules to the dauthers
+  vector<float> org_mother = c1.org_out();
+  c1->org_out_ = {org_mother[0]/2, org_mother[1]/2, org_mother[2]/2};
+  c2->set_org_out(org_mother[0]/2, org_mother[1]/2, org_mother[2]/2);
+}
+  
+
+
+
 void Environnement::competition(){
   vector<int> length;
   vector<int> width;
-  for (int k = 0; k < 10; ++k){
+  for (int k = 0; k < W_; ++k){
     length.push_back(k);
     width.push_back(k);
   }
   
-  random_shuffle(length.begin(),longeur.end());
-  random_shuffle(width.begin(),largeur.end());
+  random_shuffle(length.begin(),length.end());
+  random_shuffle(width.begin(),width.end());
 
 
   for (vector<int>::iterator i = length.begin() ; i != length.end(); ++i){
-    for (vector<int>::iterator j = witdh.begin() ; j != width.end(); ++j){
-      if (gride_[i][j].IsEmpty == false){
-        for (int k=-1;k<2, ++k){
-          for (int l=-1; l<2, ++k){
+    for (vector<int>::iterator j = width.begin() ; j != width.end(); ++j){
+      if (gride_[*i][*j].IsEmpty() == true){
+        for (int k=-1;k<2; ++k){
+          for (int l=-1; l<2; ++k){
             if (k!=0 and l!=0){
               int x=0;
               int y=0;
               
               //Thor formation
-              if(i+k>H_-1){
+              if(*i+k>H_-1){
                 x=0;
               }
-              else if(i+k<0){
+              else if(*i+k<0){
                 x=H_-1;
               }
               else{
-                x=i+k;
+                x=*i+k;
               }
-              if (j+l>W_-1){
+              if (*j+l>W_-1){
                 y=0;
               }
-              else if(j+l<0){
+              else if(*j+l<0){
                 y=W_-1;
               }
               else{
-                y=j+l;
+                y=*j+l;
               }               
-              if (gride_[i][j].IsEmpty== true){
-                int fit=gride_[i][j].fitness()
-                for (int k=-1;k<2; ++k);{
+              if (gride_[x][y].IsEmpty()== false){
+                int fit=gride_[*i][*j].fitness();
+                for (int k=-1;k<2; ++k){
                   for (int l=-1; l<2; ++k){
-                    if (fit<grille[k+i][l+j].fitness()){
-                      fit = grille[k+i][l+j].fitness();
-                      x=k+i;
-                      y=l+j;
+                    if (fit<gride_[k+*i][l+*j].fitness()){
+                      fit = gride_[k+*i][l+*j].fitness();
+                      x=k+*i;
+                      y=l+*j;
                     }
                   }
                 }
-                gride_[x][y].division(*gride_[i][j]);
+                division(gride_[x][y], gride_[*i][*j]);
                            
               }
             }
@@ -169,7 +225,7 @@ void Environnement::competition(){
  
       
 
-   
+
 //Filling the gride_
 
 void Environnement::filling_gride_(Case* gride_){
@@ -216,56 +272,6 @@ string Environnement::state(){
 
 
 
-//fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
-void Case::divison(Case* c){
-  char t;
-  //first we determine the mother's type
-  if (this -> gettype() == 'L'){
-    t = 'L';
-  }
-  
-  if (this -> gettype() == 'S'){
-    t = 'S';
-  }
-  
-  
-  
-  //this is for the cell in the box
-  double rand1 = (double) rand()/RAND_MAX;
-  if ( rand1 <= Pmut_){
-    cell_ = delete;
-    if (t == 'L'){
-      cell_ = new Cell(S);
-      nb_L_ -=1;
-      nb_S_ +1;
-    }
-    else {
-      cell_ = new Cell(L);
-      nb_S_ -= 1;
-      nb_L_ += 1;
-    } 
-  }
-  
-  //this is for the new cell that is going in the empty box
-  double rand2 = (double) rand()/RAND_MAX;
-  if ( rand2 <= c -> Pmut()){
-    if (t == 'L'){
-      c -> cell_ = new Cell(S);
-      nb_S_ +=1;
-    }
-    else {
-      c -> cell_ = new Cell(L);
-      nb_L_ +=1;
-    } 
-  }
-  
-  //distribution of the molecules to the dauthers
-  org_out_ = {org_out_[0]/2, org_out_[1]/2, org_out_[2]/2};
-  c -> org_out() = {org_out_[0]/2, org_out_[1]/2, org_out_[2]/2};  
-
-}
-  
-  */
 
 
 

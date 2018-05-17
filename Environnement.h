@@ -1,5 +1,5 @@
-#ifndef STRING_H
-#define STRING_H
+#ifndef ENVIRONNEMENT_H
+#define ENVIRONNEMENT_H
 
 //=====================================================================================================
 //                                                    INCLUDES
@@ -10,8 +10,10 @@
 #include "Case.h"
 #include <string>
 #include <iostream>
-using namespace std;
+#include "CellL.h"
+#include "CellS.h"
 
+//using namespace std;
 class Environnement{
 
   public:
@@ -54,7 +56,7 @@ class Environnement{
     void filling_gride(Case* gride);
     void reset_grid();
     string state();
-    void divison(Case* c);
+    void divison(Case* c1, Case* c2);
 
 
   protected:
