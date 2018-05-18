@@ -9,6 +9,15 @@
 
 //using namespace std;
 
+
+
+// ===========================================================================================
+//                             Definition of static attributes
+// ===========================================================================================
+
+float Environnement::Pdeath_ = 0.0;
+
+
 //====================================================================================================
 //                                                    CONSTRUCTOR
 //====================================================================================================
@@ -265,6 +274,32 @@ string Environnement::state(){
     return "Cohabitation";
   }
 }
+
+
+void Environnement::death(){  
+  for(int i=0; i<H_; ++i){
+    for (int j=0; j<W_; ++j){ 
+      float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
+      if (nb < Pdeath_){
+        vector<float> org_out=gride_[i][j].org_out();
+        vector<float> org_int=gride_[i][j].cell()->getorg_int();
+        vector<float> new_org;
+        new_org.push_back(org_int[0]+org_out[0]);
+        new_org.push_back(org_int[1]+org_out[1]);
+        new_org.push_back(org_int[2]+org_out[2]);
+        gride_[i][j].set_org_out(new_org);
+        delete gride_[i][j].cell();
+        if (gride_[i][j].IsA() == 'L'){
+          nb_L_ -=1;
+        }
+        else {
+          nb_S_ -=1;
+        }
+      }
+    }
+  }
+}
+
 
 
 

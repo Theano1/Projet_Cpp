@@ -56,6 +56,7 @@ class Environnement{
     void reset_grid();
     string state();
     void division(Case* c1, Case* c2);
+    void death();
 
 
   protected:
@@ -72,6 +73,7 @@ class Environnement{
     float D_;
     float Ainit_;
     float Tfinal_;
+    static float Pdeath_;
     Case** gride_;
     
 

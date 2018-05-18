@@ -43,7 +43,7 @@ class Cell{
     //
     
     vector <float> division_org();
-    
+    vector <float> getorg_int();
 
     
     

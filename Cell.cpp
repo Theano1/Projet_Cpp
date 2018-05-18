@@ -78,6 +78,11 @@ char Cell::Gettype(){
     return type_;
 }
 
+
+vector <float> Cell::getorg_int(){
+  return org_int_;
+}
+
 //==============================
 //    PROTECTED METHODS
 //==============================

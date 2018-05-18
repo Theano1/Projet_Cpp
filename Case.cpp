@@ -166,7 +166,7 @@ char Case::IsA(){
   if (this -> cell() -> Gettype() == 'L'){
     return 'L';
   }
-  else if (this -> cell() -> Gettype() == 'S'){
+  else{
     return 'S';
   }
 }
