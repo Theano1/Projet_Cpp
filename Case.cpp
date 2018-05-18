@@ -91,13 +91,24 @@ float Case::Pmut(){
 // ===========================================================================================
 
 
+void Case::set_cell(char c, vector <float> org){
+  delete[] cell_;  
+  if (c == 'L'){
+    cell_ = new Cell('L', org);
+  }
+  else if (c == 'S'){
+    cell_ = new Cell('S', org);
+  } 
+}
+
+
 void Case::set_cell(char c){
   delete[] cell_;  
   if (c == 'L'){
-    cell_ = new CellL();
+    cell_ = new Cell('L');
   }
   else if (c == 'S'){
-    cell_ = new CellS();
+    cell_ = new Cell('S');
   } 
 }
 
@@ -154,9 +165,12 @@ bool Case::IsEmpty(){
 char Case::IsA(){
   if (this -> cell() -> Gettype() == 'L'){
     return 'L';
+  }
   else if (this -> cell() -> Gettype() == 'S'){
     return 'S';
+  }
 }
+
 
 
 

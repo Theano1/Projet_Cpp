@@ -52,6 +52,7 @@ class Case{
     
 
     void set_cell(char c);
+    void set_cell(char c, vector <float> org);
     void set_org_out(vector <float> org);
     
     

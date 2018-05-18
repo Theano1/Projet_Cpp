@@ -1,24 +1,19 @@
-
-
 #include "Environnement.h"
-
-
-};
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 #include "Cell.h"
 #include "CellS.h"
 #include "CellL.h"
 #include "Case.h"
+#include "Environnement.h"
 using namespace std;
+
+
 int main() {
 
-  //--------------------TEST CASE------------------------
-  
-  //Case* case1 = new Case(0,0,0.587);
-  //cout << "coordonnées de la case: \nx = " << case1->x() << "\ny = " << case1->y() << endl;
-  
-  
+  //--------------------TEST Environnemernt------------------------
+
+  new Environnement(10, 10, .01, 7, 5, 10.10);
   
   
   return 0;

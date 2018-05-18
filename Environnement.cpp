@@ -1,5 +1,3 @@
-#include <cstdio>
-#include <iostream>
 #include "Environnement.h"
 #include "Case.h"
 #include <vector>
@@ -22,8 +20,8 @@ Environnement::Environnement(int W, int H, float D, int T, float Ainit, float Tf
   T_=T;
   Ainit_=Ainit;
   Tfinal_=Tfinal;
-  int nb_S_= (W_*H_)/2;
-  int nb_L_= (W_*H_)/2;
+  nb_S_= (W_*H_)/2;
+  nb_L_= (W_*H_)/2;
   
   
   //gride_ creation
@@ -60,8 +58,8 @@ Environnement::~Environnement(){
 void Environnement::diffusion(){
   int x=0;
   int y=0;
-  int k;
-  int l;
+  int k=0;
+  int l=0;
   for (int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++i){
       float a=gride_[i][j].org_out()[0];
@@ -111,14 +109,20 @@ void Environnement::diffusion(){
 
 //fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
 //c1: mother and c2: daugther
-void Environnement::divison(Case* c1, Case* c2){
+void Environnement::division(Case* c1, Case* c2){
+  
+  //stock the interior organelles of the cell that is going to divise
+  vector<float> org_mother = c1->cell()->division_org();
+  
+  //stock of the cell's type
   char t;
+  
   //first we determine the mother's type
-  if (c1->cell_->Gettype() == 'L'){
+  if (c1->cell()->Gettype() == 'L'){
     t = 'L';
   }
   
-  if (c1->cell_->Gettype() == 'S'){
+  if (c1->cell()->Gettype() == 'S'){
     t = 'S';
   }
   
@@ -126,14 +130,14 @@ void Environnement::divison(Case* c1, Case* c2){
   //this is for the cell in the box
   double rand1 = (double) rand()/RAND_MAX;
   if ( rand1 <= c1->Pmut()){
-    c1->cell_ = delete;
+    delete c1->cell();
     if (t == 'L'){
-      c1->cell_ = new CellS();
+      c1->set_cell('S', org_mother);
       nb_L_ -=1;
-      nb_S_ +1;
+      nb_S_ +=1;
     }
     else {
-      c1->cell_ = new CellL();
+      c1->set_cell('L', org_mother);
       nb_S_ -= 1;
       nb_L_ += 1;
     } 
@@ -141,21 +145,16 @@ void Environnement::divison(Case* c1, Case* c2){
   
   //this is for the new cell that is going in the empty box
   double rand2 = (double) rand()/RAND_MAX;
-  if ( rand2 <= c -> c2->Pmut()){
+  if ( rand2 <= c2->Pmut()){
     if (t == 'L'){
-      c2->cell_ = new CellS();
+      c2->set_cell('S', org_mother);
       nb_S_ +=1;
     }
     else {
-      c2->cell_ = new CellL();
+      c2->set_cell('L', org_mother);
       nb_L_ +=1;
     } 
   }
-  
-  //distribution of the molecules to the dauthers
-  vector<float> org_mother = c1.org_out();
-  c1->org_out_ = {org_mother[0]/2, org_mother[1]/2, org_mother[2]/2};
-  c2->set_org_out(org_mother[0]/2, org_mother[1]/2, org_mother[2]/2);
 }
   
 
@@ -212,7 +211,7 @@ void Environnement::competition(){
                     }
                   }
                 }
-                division(gride_[x][y], gride_[*i][*j]);
+                this->division(&gride_[x][y], &gride_[*i][*j]);
                            
               }
             }
@@ -228,15 +227,15 @@ void Environnement::competition(){
 
 //Filling the gride_
 
-void Environnement::filling_gride_(Case* gride_){
+void Environnement::filling_gride(Case* gride){
   vector<char> vec((H_*W_)/2, 'L');
   vector<char> vec1((H_*W_)/2,'S');
   vec.insert(vec.end(),vec1.begin(), vec1.end());
   random_shuffle(vec.begin(), vec.end());
   int count=0;
   for (int i=0; i<H_; ++i){
-    for (int j=0; j<W; ++i){
-        gride_[i][j]= Case(A_init, vec[count]) ; 
+    for (int j=0; j<W_; ++i){
+        gride_[i][j]= Case(Ainit_, vec[count]) ; 
         count += 1;
       }
     }

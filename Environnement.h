@@ -5,15 +5,14 @@
 //                                                    INCLUDES
 //=====================================================================================================
 
-#include <cstdio>
-#include <cstdlib>
+
 #include "Case.h"
 #include <string>
-#include <iostream>
+#include <vector>
 #include "CellL.h"
 #include "CellS.h"
 
-//using namespace std;
+using namespace std;
 class Environnement{
 
   public:
@@ -56,7 +55,7 @@ class Environnement{
     void filling_gride(Case* gride);
     void reset_grid();
     string state();
-    void divison(Case* c1, Case* c2);
+    void division(Case* c1, Case* c2);
 
 
   protected:
@@ -65,8 +64,8 @@ class Environnement{
 //                                                    ATTRIBUTS
 //=====================================================================================================
   
-    int nb_S_init_;
-    int nb_L_init_;
+    int nb_S_;
+    int nb_L_;
     int W_;
     int H_;
     int T_;
