@@ -263,11 +263,13 @@ void Environnement::filling_gride(float A){
   for (int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++j){
         assert(it != vec.end());
-        gride_[i][j]= Case(A, *it); 
+        //gride_[i][j] = Case(A, *it);
+        //Cell* cell = gride_[i][j].cell();
+        gride_[i][j].set_cell(*it);
+        //Cell* cell = gride_[i][j].cell();
         ++it;
       }
     }
-  
 }
    
 
@@ -334,7 +336,6 @@ void Environnement::metabolism(){
         else {
           float Bout =gride_[i][j].org_out()[1];
           
-          cout << "The cell " << gride_[i][j].cell()->Gettype() << endl;
           assert(gride_[i][j].cell() != NULL);
           
           new_Bout = (gride_[i][j].cell())->absorb(Bout);

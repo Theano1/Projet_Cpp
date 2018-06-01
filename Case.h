@@ -78,6 +78,8 @@ class Case{
     Cell* cell_;
     static float Wmin_;
     static float Pmut_;
+    
+    
 };
 
 

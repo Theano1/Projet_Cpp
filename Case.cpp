@@ -106,7 +106,9 @@ void Case::set_cell(char c, vector <float> org){
   }
   else if (c == 'S'){
     cell_ = new CellS(org);
-  } 
+  } else {
+    cerr << c << " is an inccorect cell type." << endl;
+  }
 }
 
 
