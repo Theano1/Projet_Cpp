@@ -21,7 +21,7 @@ class Environnement{
 //                                                    CONSCTRUCTORS
 //=====================================================================================================
 
-    Environnement(int W, int H, float D, int T, float Ainit, float Tfinal);
+    Environnement(int W, int H, float D, float Tfinal);
   
 //=====================================================================================================
 //                                                    DESTRUCTOR
@@ -36,10 +36,8 @@ class Environnement{
     int nb_L_init();
     int W();
     int H();
-    int T();
-    float Ainit();
     float Tfinal();
-    
+    Case** gride();
   
 //=====================================================================================================
 //                                                    SETTERS
@@ -52,12 +50,13 @@ class Environnement{
   
     void diffusion();
     void competition();
-    void filling_gride(Case* gride);
-    void reset_grid();
-    string state();
+    void filling_gride(float A);
+    void reset_grid(float A);
+    int state();
     void division(Case* c1, Case* c2);
     void death();
-
+    int run(float Ainit, int t);
+    void metabolism();
 
   protected:
 
@@ -69,9 +68,7 @@ class Environnement{
     int nb_L_;
     int W_;
     int H_;
-    int T_;
     float D_;
-    float Ainit_;
     float Tfinal_;
     static float Pdeath_;
     Case** gride_;

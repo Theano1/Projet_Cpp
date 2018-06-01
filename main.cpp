@@ -13,7 +13,8 @@ int main() {
 
   //--------------------TEST Environnemernt------------------------
 
-  new Environnement(10, 10, .01, 7, 5, 10.10);
+  Environnement* env = new Environnement(4,4,0.1,50);
+  cout<< env->run(3,10)<<endl;
   
   
   return 0;

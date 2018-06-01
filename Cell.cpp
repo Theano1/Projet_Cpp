@@ -25,12 +25,13 @@ using namespace std;
 //==============================
 
 Cell::Cell(){
+    type_ = '0'; 
     org_int_.push_back(.0);
     org_int_.push_back(.0);
     org_int_.push_back(.0);
 }
 
-
+/*
 Cell::Cell(char c, vector <float> org){
     if (c == 'L'){
       new CellL(org);
@@ -50,7 +51,7 @@ Cell::Cell(char c){
       new CellS();
     }
 }
-
+*/
 //==============================
 //    DESTUCTORS
 //==============================
@@ -69,6 +70,11 @@ vector <float> Cell::division_org(){
   return org_int_;
 }
 
+/*
+float Cell::absorb(float out){
+  return 0.0;
+}
+*/
 
 //==============================
 //    GETTERS

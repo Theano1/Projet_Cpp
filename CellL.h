@@ -46,7 +46,7 @@ class CellL: public Cell{
     //    PUBLIC METHODS
     //==============================
     
-    virtual float absorb(float out);
+    float absorb(float out);
     
     
     

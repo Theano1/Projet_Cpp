@@ -32,7 +32,10 @@ Case::Case(vector <float> org, char c){
   }
   else if (c == 'S'){
     cell_ = new CellS();
-  }  
+  } else {
+    cerr << "Error wrong cell type asked: " << c << endl;
+    exit(EXIT_FAILURE);
+  }
 }
 
 //constructeur qui prend en parametre la quantité initiale de glucose et le type de la cellule
@@ -41,14 +44,17 @@ Case::Case(float a, char c){
   org_out_.push_back(a);
   org_out_.push_back(.0);
   org_out_.push_back(.0);
+  cell_ = nullptr;
   
   if (c == 'L'){
     cell_ = new CellL();
   }
   else if (c == 'S'){
     cell_ = new CellS();
-  } 
-  
+  } else {
+    cerr << "Error wrong cell type asked: " << c << endl;
+    exit(EXIT_FAILURE);
+  }
 }
 
 Case::Case(){
@@ -65,7 +71,9 @@ Case::Case(){
 
 
 Case::~Case(){
-  delete[] cell_;  
+  if (cell_ != nullptr){
+    delete cell_;
+  }
 }
 
 // ===========================================================================================
@@ -92,23 +100,23 @@ float Case::Pmut(){
 
 
 void Case::set_cell(char c, vector <float> org){
-  delete[] cell_;  
+  delete cell_; // Vérifier si cell_ est une liste, sinon supprimer les crochets
   if (c == 'L'){
-    cell_ = new Cell('L', org);
+    cell_ = new CellL(org);
   }
   else if (c == 'S'){
-    cell_ = new Cell('S', org);
+    cell_ = new CellS(org);
   } 
 }
 
 
 void Case::set_cell(char c){
-  delete[] cell_;  
+  delete cell_; // Vérifier si cell_ est une liste, sinon supprimer les crochets
   if (c == 'L'){
-    cell_ = new Cell('L');
+    cell_ = new CellL();
   }
   else if (c == 'S'){
-    cell_ = new Cell('S');
+    cell_ = new CellS();
   } 
 }
 

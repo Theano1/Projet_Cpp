@@ -16,9 +16,10 @@ class Cell{
     //==============================
 
     Cell();
+    /*
     Cell(char c, vector <float> org);
     Cell(char c);
-
+    */
     //==============================
     //    DESTRUCTORS
     //==============================
@@ -44,7 +45,7 @@ class Cell{
     
     vector <float> division_org();
     vector <float> getorg_int();
-
+    virtual float absorb(float out) = 0;
     
     
     protected:

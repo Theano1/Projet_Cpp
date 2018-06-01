@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <cassert>
 #include "Cell.h"
 #include "CellL.h"
 #include "CellS.h"
@@ -15,19 +16,17 @@
 //                             Definition of static attributes
 // ===========================================================================================
 
-float Environnement::Pdeath_ = 0.0;
+float Environnement::Pdeath_ = 0.00;
 
 
 //====================================================================================================
 //                                                    CONSTRUCTOR
 //====================================================================================================
 
-Environnement::Environnement(int W, int H, float D, int T, float Ainit, float Tfinal){ 
+Environnement::Environnement(int W, int H, float D, float Tfinal){ 
   W_=W;
   H_=H;
   D_=D;
-  T_=T;
-  Ainit_=Ainit;
   Tfinal_=Tfinal;
   nb_S_= (W_*H_)/2;
   nb_L_= (W_*H_)/2;
@@ -48,16 +47,30 @@ Environnement::Environnement(int W, int H, float D, int T, float Ainit, float Tf
 
 Environnement::~Environnement(){
   for(int i=0; i<H_; ++i){
-    for (int j=0; j<W_; ++j){
-      delete[] &gride_[i][j];
+    if (gride_[i]!= nullptr){
+      delete[] gride_[i];  
     }
   }
+  delete[] gride_;
 }
 
 //====================================================================================================
 //                                                    GETTERS
 //====================================================================================================
 
+int Environnement::H(){
+  return H_;
+}
+
+
+int Environnement::W(){
+  return W_;
+}
+
+
+Case** Environnement::gride(){
+  return gride_;
+}
 
 
 //====================================================================================================
@@ -67,15 +80,13 @@ Environnement::~Environnement(){
 void Environnement::diffusion(){
   int x=0;
   int y=0;
-  int k=0;
-  int l=0;
   for (int i=0; i<H_; ++i){
-    for (int j=0; j<W_; ++i){
+    for (int j=0; j<W_; ++j){
       float a=gride_[i][j].org_out()[0];
       float b=gride_[i][j].org_out()[1];
       float c=gride_[i][j].org_out()[2];
       for (int k=-1;k<2; ++k){
-        for (int l=-1; l<2; ++k){
+        for (int l=-1; l<2; ++l){
           if (k!=0 and l!=0){
               
               //Thor formation
@@ -98,18 +109,25 @@ void Environnement::diffusion(){
               y=j+l;       
             }  
             
-            a=a+D_*gride_[x+k][y+l].org_out()[0];
-            b=b+D_*gride_[x+k][y+l].org_out()[1];
-            c=c+D_*gride_[x+k][y+l].org_out()[2];      
+            a=a+D_*gride_[x][y].org_out()[0];
+            b=b+D_*gride_[x][y].org_out()[1];
+            c=c+D_*gride_[x][y].org_out()[2];      
             
                              
           }       
         }
       }
-      a=a-9*D_*gride_[x+k][y+l].org_out()[0];
-      b=b-9*D_*gride_[x+k][y+l].org_out()[1];
-      c=c-9*D_*gride_[x+k][y+l].org_out()[2];
-       
+      a=a-9*D_*gride_[i][j].org_out()[0];
+      b=b-9*D_*gride_[i][j].org_out()[1];
+      c=c-9*D_*gride_[i][j].org_out()[2];
+      
+      //update of organites out
+      vector<float> vect;
+      vect.push_back(a);
+      vect.push_back(b);
+      vect.push_back(c);
+      gride_[x][y].set_org_out(vect);
+      
     }
   }
 }
@@ -139,7 +157,6 @@ void Environnement::division(Case* c1, Case* c2){
   //this is for the cell in the box
   double rand1 = (double) rand()/RAND_MAX;
   if ( rand1 <= c1->Pmut()){
-    delete c1->cell();
     if (t == 'L'){
       c1->set_cell('S', org_mother);
       nb_L_ -=1;
@@ -185,7 +202,7 @@ void Environnement::competition(){
     for (vector<int>::iterator j = width.begin() ; j != width.end(); ++j){
       if (gride_[*i][*j].IsEmpty() == true){
         for (int k=-1;k<2; ++k){
-          for (int l=-1; l<2; ++k){
+          for (int l=-1; l<2; ++l){
             if (k!=0 and l!=0){
               int x=0;
               int y=0;
@@ -212,7 +229,7 @@ void Environnement::competition(){
               if (gride_[x][y].IsEmpty()== false){
                 int fit=gride_[*i][*j].fitness();
                 for (int k=-1;k<2; ++k){
-                  for (int l=-1; l<2; ++k){
+                  for (int l=-1; l<2; ++l){
                     if (fit<gride_[k+*i][l+*j].fitness()){
                       fit = gride_[k+*i][l+*j].fitness();
                       x=k+*i;
@@ -236,16 +253,18 @@ void Environnement::competition(){
 
 //Filling the gride_
 
-void Environnement::filling_gride(Case* gride){
+void Environnement::filling_gride(float A){
   vector<char> vec((H_*W_)/2, 'L');
   vector<char> vec1((H_*W_)/2,'S');
   vec.insert(vec.end(),vec1.begin(), vec1.end());
   random_shuffle(vec.begin(), vec.end());
-  int count=0;
+  vector<char>::iterator it = vec.begin();
+  
   for (int i=0; i<H_; ++i){
-    for (int j=0; j<W_; ++i){
-        gride_[i][j]= Case(Ainit_, vec[count]) ; 
-        count += 1;
+    for (int j=0; j<W_; ++j){
+        assert(it != vec.end());
+        gride_[i][j]= Case(A, *it); 
+        ++it;
       }
     }
   
@@ -254,24 +273,24 @@ void Environnement::filling_gride(Case* gride){
 
 
 //Reset the environment
-void Environnement::reset_grid(){
+void Environnement::reset_grid(float A){
   for(int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++j){      
-      gride_[i][j].reset_case(Ainit_);
+      gride_[i][j].reset_case(A);
     }
   }
 }
   
 
-string Environnement::state(){
+int Environnement::state(){
   if (nb_S_ ==0 and nb_L_ ==0){
-    return "Extinction";
+    return 0; //"Extinction";
   }
   else if (nb_S_ ==0 and nb_L_ !=0){
-    return "Exclusion";
+    return 1; //"Exclusion";
   }
   else{
-    return "Cohabitation";
+    return 2; //"Cohabitation";
   }
 }
 
@@ -288,7 +307,7 @@ void Environnement::death(){
         new_org.push_back(org_int[1]+org_out[1]);
         new_org.push_back(org_int[2]+org_out[2]);
         gride_[i][j].set_org_out(new_org);
-        delete gride_[i][j].cell();
+        delete &gride_[i][j];
         if (gride_[i][j].IsA() == 'L'){
           nb_L_ -=1;
         }
@@ -301,11 +320,55 @@ void Environnement::death(){
 }
 
 
+void Environnement::metabolism(){
+  float new_Aout = .0;
+  float new_Bout = .0;
+    for(int i=0; i< H_; ++i){
+      for (int j=0; j<W_; ++j){ 
+        if (gride_[i][j].cell()->Gettype() == 'L'){
+        
+          float Aout =gride_[i][j].org_out()[0];
+          new_Aout =gride_[i][j].cell()->absorb(Aout);
+          new_Bout =gride_[i][j].org_out()[1];
+        }
+        else {
+          float Bout =gride_[i][j].org_out()[1];
+          
+          cout << "The cell " << gride_[i][j].cell()->Gettype() << endl;
+          assert(gride_[i][j].cell() != NULL);
+          
+          new_Bout = (gride_[i][j].cell())->absorb(Bout);
+          new_Aout = gride_[i][j].org_out()[0];
+        }
+        
+
+        vector <float> new_vect_out;
+        new_vect_out.push_back(new_Aout);
+        new_vect_out.push_back(new_Bout);
+        new_vect_out.push_back(gride_[i][j].org_out()[2]);
+        gride_[i][j].set_org_out(new_vect_out);
+      }
+    }
+}
 
 
 
-
-
+int Environnement::run(float Ainit, int t){
+  filling_gride(Ainit);
+  for (int z=1; z<5001; ++z){
+    if (z == t){
+      reset_grid(Ainit);
+    }
+    
+    //diffusion();
+    //death();
+    //competition();
+    metabolism(); 
+  }
+  
+  return this->state();
+      
+}
 
 
 

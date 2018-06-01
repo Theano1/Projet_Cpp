@@ -12,13 +12,13 @@ Case.o:Case.cpp Case.h Cell.h CellL.h CellS.h
 Environnement.o:Environnement.cpp Environnement.h
 	g++ -g -c -Wall   Environnement.cpp -o Environnement.o -std=c++11
 
-Cell.o:  Cell.cpp Cell.h
+Cell.o:  Cell.cpp Cell.h 
 	g++ -g -c -Wall   Cell.cpp -o Cell.o -std=c++11
 
-CellS.o:  CellS.cpp CellS.h
+CellS.o:  CellS.cpp CellS.h Cell.h
 	g++ -g -c -Wall   CellS.cpp -o CellS.o -std=c++11
 
-CellL.o:  CellL.cpp CellL.h
+CellL.o:  CellL.cpp CellL.h Cell.h
 	g++ -g -c -Wall   CellL.cpp -o CellL.o -std=c++11
 
 
