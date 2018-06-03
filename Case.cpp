@@ -33,8 +33,7 @@ Case::Case(vector <float> org, char c){
   }
   else if (c == 'S'){
     cell_ = new CellS();
-  } 
-  else {
+  } else {
     cerr << "Error wrong cell type asked: " << c << endl;
     exit(EXIT_FAILURE);
   }
@@ -91,6 +90,7 @@ Cell* Case::cell(){
   return cell_;
 }
 
+
 float Case::Pmut(){
   return Pmut_;
 }
@@ -112,14 +112,9 @@ void Case::set_cell(char c, vector <float> org){
   }
   else if (c == 'S'){
     cell_ = new CellS(org);
-<<<<<<< HEAD
   } 
   else {
-    cout << "probleme dans set_cell" << endl;
-=======
-  } else {
     cerr << c << " is an inccorect cell type." << endl;
->>>>>>> 4c2a138de31d6fa49181689c01977a19b715fe9b
   }
 }
 
@@ -145,9 +140,8 @@ void Case::set_org_out(vector <float> org){
   org_out_[0] = org[0];
   org_out_[1] = org[1];
   org_out_[2] = org[2];
+
 }
-
-
 
 
 // =========================================================================================
@@ -165,20 +159,15 @@ void Case::reset_case(float Ainit){
    
 //fonction qui permet de déterminer la fitness d'une cellule
 float Case::fitness(){
-  float w=0.0;
+  float w;
   if (this -> cell() -> Gettype() == 'L'){
     w = org_out_[1];
   }
-<<<<<<< HEAD
-  else{
-=======
   else {
->>>>>>> 4c2a138de31d6fa49181689c01977a19b715fe9b
     w = org_out_[2];
   }
-  
   if (w < Wmin_){
-    w = 0;
+    w = 0.;
   }
   return w;
 }
@@ -204,5 +193,12 @@ char Case::IsA(){
     return 'S';
   }
 }
+
+void Case::death(){
+  cell_ = nullptr;
+  delete cell_;
+}
+
+
 
 

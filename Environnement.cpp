@@ -16,7 +16,7 @@
 //                             Definition of static attributes
 // ===========================================================================================
 
-float Environnement::Pdeath_ = 0.00;
+float Environnement::Pdeath_ = 1.;
 
 
 //====================================================================================================
@@ -197,10 +197,12 @@ void Environnement::competition(){
   random_shuffle(length.begin(),length.end());
   random_shuffle(width.begin(),width.end());
 
-
+  cout << "yolo" << endl;
   for (vector<int>::iterator i = length.begin() ; i != length.end(); ++i){
     for (vector<int>::iterator j = width.begin() ; j != width.end(); ++j){
+      cout << gride_[*i][*j].IsEmpty() << endl;
       if (gride_[*i][*j].IsEmpty() == true){
+        cout << "yolo2" << endl;
         for (int k=-1;k<2; ++k){
           for (int l=-1; l<2; ++l){
             if (k!=0 and l!=0){
@@ -301,6 +303,8 @@ void Environnement::death(){
   for(int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++j){ 
       float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
+      
+      
       if (nb < Pdeath_){
         vector<float> org_out=gride_[i][j].org_out();
         vector<float> org_int=gride_[i][j].cell()->getorg_int();
@@ -309,13 +313,17 @@ void Environnement::death(){
         new_org.push_back(org_int[1]+org_out[1]);
         new_org.push_back(org_int[2]+org_out[2]);
         gride_[i][j].set_org_out(new_org);
-        delete &gride_[i][j];
+        
         if (gride_[i][j].IsA() == 'L'){
           nb_L_ -=1;
         }
         else {
           nb_S_ -=1;
         }
+        
+        
+        gride_[i][j].death();
+
       }
     }
   }
@@ -356,14 +364,14 @@ void Environnement::metabolism(){
 
 int Environnement::run(float Ainit, int t){
   filling_gride(Ainit);
-  for (int z=1; z<5001; ++z){
+  for (int z=1; z<51; ++z){
     if (z == t){
       reset_grid(Ainit);
     }
     
-    //diffusion();
-    //death();
-    //competition();
+    diffusion();
+    death();
+    competition();
     metabolism(); 
   }
   
