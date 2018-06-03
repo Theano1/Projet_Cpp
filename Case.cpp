@@ -27,12 +27,14 @@ Case::Case(vector <float> org, char c){
   org_out_.push_back(org[0]);
   org_out_.push_back(org[1]);
   org_out_.push_back(org[2]);
+  cell_ = nullptr;
   if (c == 'L'){
     cell_ = new CellL();
   }
   else if (c == 'S'){
     cell_ = new CellS();
-  } else {
+  } 
+  else {
     cerr << "Error wrong cell type asked: " << c << endl;
     exit(EXIT_FAILURE);
   }
@@ -100,24 +102,37 @@ float Case::Pmut(){
 
 
 void Case::set_cell(char c, vector <float> org){
-  delete cell_; // Vérifier si cell_ est une liste, sinon supprimer les crochets
+  if (cell_ != nullptr){
+    delete cell_;
+  }
+  
+  
   if (c == 'L'){
     cell_ = new CellL(org);
   }
   else if (c == 'S'){
     cell_ = new CellS(org);
   } 
+  else {
+    cout << "probleme dans set_cell" << endl;
+  }
 }
 
 
 void Case::set_cell(char c){
-  delete cell_; // Vérifier si cell_ est une liste, sinon supprimer les crochets
+  if (cell_ != nullptr){
+    delete cell_;
+  }
+  
   if (c == 'L'){
     cell_ = new CellL();
   }
   else if (c == 'S'){
     cell_ = new CellS();
   } 
+  else {
+     cout << "probleme dans set_cell" << endl;
+  }
 }
 
 
@@ -125,8 +140,9 @@ void Case::set_org_out(vector <float> org){
   org_out_[0] = org[0];
   org_out_[1] = org[1];
   org_out_[2] = org[2];
-
 }
+
+
 
 
 // =========================================================================================
@@ -148,9 +164,10 @@ float Case::fitness(){
   if (this -> cell() -> Gettype() == 'L'){
     w = org_out_[1];
   }
-  else if (this -> cell() -> Gettype() == 'S'){
+  else{
     w = org_out_[2];
   }
+  
   if (w < Wmin_){
     w = 0;
   }
@@ -178,7 +195,5 @@ char Case::IsA(){
     return 'S';
   }
 }
-
-
 
 
