@@ -112,9 +112,14 @@ void Case::set_cell(char c, vector <float> org){
   }
   else if (c == 'S'){
     cell_ = new CellS(org);
+<<<<<<< HEAD
   } 
   else {
     cout << "probleme dans set_cell" << endl;
+=======
+  } else {
+    cerr << c << " is an inccorect cell type." << endl;
+>>>>>>> 4c2a138de31d6fa49181689c01977a19b715fe9b
   }
 }
 
@@ -160,11 +165,15 @@ void Case::reset_case(float Ainit){
    
 //fonction qui permet de déterminer la fitness d'une cellule
 float Case::fitness(){
-  float w;
+  float w=0.0;
   if (this -> cell() -> Gettype() == 'L'){
     w = org_out_[1];
   }
+<<<<<<< HEAD
   else{
+=======
+  else {
+>>>>>>> 4c2a138de31d6fa49181689c01977a19b715fe9b
     w = org_out_[2];
   }
   

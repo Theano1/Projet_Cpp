@@ -49,7 +49,6 @@ vector <float> CellL::getorg_int(){
 
 
 float CellL::absorb(float out){ // système qui régit le réseau métabolique des individus de type Ga
-  cout << "using cellL absorb" << endl;
   float Aout = out;
   float Ain = org_int_[0];
   
