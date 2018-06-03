@@ -1,7 +1,7 @@
 all: main
 
 main: main.o Environnement.o Case.o Cell.o CellL.o CellS.o
-	g++ -o main main.o Environnement.o Case.o Cell.o CellS.o CellL.o 
+	g++ -o main main.o Environnement.o Case.o Cell.o CellS.o CellL.o
 	
 main.o:main.cpp Case.cpp Environnement.cpp Cell.cpp CellL.cpp CellS.cpp
 	g++ -g -c -Wall main.cpp -o main.o -std=c++11
@@ -24,3 +24,4 @@ CellL.o:  CellL.cpp CellL.h Cell.h
 
 clean:
 	rm -f *.o
+

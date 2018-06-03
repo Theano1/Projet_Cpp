@@ -146,7 +146,7 @@ void Case::reset_case(float Ainit){
    
 //fonction qui permet de déterminer la fitness d'une cellule
 float Case::fitness(){
-  float w=0.0;
+  float w;
   if (this -> cell() -> Gettype() == 'L'){
     w = org_out_[1];
   }
@@ -154,7 +154,7 @@ float Case::fitness(){
     w = org_out_[2];
   }
   if (w < Wmin_){
-    w = 0;
+    w = 0.;
   }
   return w;
 }
