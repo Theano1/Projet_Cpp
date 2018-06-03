@@ -16,7 +16,7 @@
 //                             Definition of static attributes
 // ===========================================================================================
 
-float Environnement::Pdeath_ = 1.;
+float Environnement::Pdeath_ = 0.02;
 
 
 //====================================================================================================
@@ -117,9 +117,28 @@ void Environnement::diffusion(){
           }       
         }
       }
-      a=a-9*D_*gride_[i][j].org_out()[0];
-      b=b-9*D_*gride_[i][j].org_out()[1];
-      c=c-9*D_*gride_[i][j].org_out()[2];
+      
+      if (9*D_*gride_[i][j].org_out()[0] > a){
+        a = 0;
+      }
+      else {
+        a=a-9*D_*gride_[i][j].org_out()[0];
+      }
+      
+      if (9*D_*gride_[i][j].org_out()[1] > b){
+        b = 0;
+      }
+      else {
+        b=b-9*D_*gride_[i][j].org_out()[1];
+      }
+      
+      if (9*D_*gride_[i][j].org_out()[2] > c){
+        c = 0;
+      }
+      else {
+        c=c-9*D_*gride_[i][j].org_out()[2];
+      }
+
       
       //update of organites out
       vector<float> vect;
@@ -137,13 +156,18 @@ void Environnement::diffusion(){
 //fonction de divison: la case c recoit la cellule fille de la case sur laquelle on applique le méthode
 //c1: mother and c2: daugther
 void Environnement::division(Case* c1, Case* c2){
-  
+  //cout << "testouille divisonouille" << endl;
+  //cout << "cell = " << c1->cell() << endl;
+  //cout << "division = " << c1->cell()->division_org()[1]  << endl;
+
   //stock the interior organelles of the cell that is going to divise
   vector<float> org_mother = c1->cell()->division_org();
+
+  
   
   //stock of the cell's type
   char t;
-  
+  //cout << "La cellule qui va se diviser est une " << c1->cell()->Gettype()  << endl;
   //first we determine the mother's type
   if (c1->cell()->Gettype() == 'L'){
     t = 'L';
@@ -152,6 +176,8 @@ void Environnement::division(Case* c1, Case* c2){
   if (c1->cell()->Gettype() == 'S'){
     t = 'S';
   }
+
+  
   
   
   //this is for the cell in the box
@@ -169,6 +195,19 @@ void Environnement::division(Case* c1, Case* c2){
     } 
   }
   
+  
+  else {
+    if (t == 'L'){
+      c1->set_cell('L', org_mother);
+    }
+    else {
+      //cout << "je vais me diviser en 2 car je suis une maman S" << endl;
+      c1->set_cell('S', org_mother);
+      //cout << "je me suis divisée en 2 car je suis une maman S" << endl;
+    }
+  } 
+  
+  
   //this is for the new cell that is going in the empty box
   double rand2 = (double) rand()/RAND_MAX;
   if ( rand2 <= c2->Pmut()){
@@ -179,8 +218,20 @@ void Environnement::division(Case* c1, Case* c2){
     else {
       c2->set_cell('L', org_mother);
       nb_L_ +=1;
+    }
+  } 
+  
+  
+  else {
+    if (t == 'L'){
+      c2->set_cell('L', org_mother);
+    }
+    else {
+      c2->set_cell('S', org_mother);
     } 
   }
+  
+  //cout << "testouille divisonouille ze end" << endl;
 }
   
 
@@ -189,6 +240,8 @@ void Environnement::division(Case* c1, Case* c2){
 void Environnement::competition(){
   vector<int> length;
   vector<int> width;
+  int cor_x;
+  int cor_y;
   for (int k = 0; k < W_; ++k){
     length.push_back(k);
     width.push_back(k);
@@ -197,16 +250,16 @@ void Environnement::competition(){
   random_shuffle(length.begin(),length.end());
   random_shuffle(width.begin(),width.end());
 
-  cout << "yolo" << endl;
+  //cout << "je rentre dans compétition" << endl;
   for (vector<int>::iterator i = length.begin() ; i != length.end(); ++i){
     for (vector<int>::iterator j = width.begin() ; j != width.end(); ++j){
-      cout << gride_[*i][*j].IsEmpty() << endl;
       if (gride_[*i][*j].IsEmpty() == true){
-        cout << "yolo2" << endl;
+        //cout << "je rentre dans isempty() == true" << endl;
         for (int k=-1;k<2; ++k){
           for (int l=-1; l<2; ++l){
             if (k!=0 and l!=0){
               int x=0;
+
               int y=0;
               
               //Thor formation
@@ -228,25 +281,28 @@ void Environnement::competition(){
               else{
                 y=*j+l;
               }               
+              
+              //cout << "est ce que mon voisin est vide? " << gride_[x][y].IsEmpty() << endl;
+              
               if (gride_[x][y].IsEmpty()== false){
-                int fit=gride_[*i][*j].fitness();
-                for (int k=-1;k<2; ++k){
-                  for (int l=-1; l<2; ++l){
-                    if (fit<gride_[k+*i][l+*j].fitness()){
-                      fit = gride_[k+*i][l+*j].fitness();
-                      x=k+*i;
-                      y=l+*j;
-                    }
-                  }
+                //cout << "je rentre dans isempty == false" << endl;
+                int fit=gride_[x][y].fitness();
+                cor_x = x;
+                cor_y = y;
+                
+                if (fit<gride_[x][y].fitness()){
+                  fit = gride_[x][y].fitness();
+                  cor_x = x;
+                  cor_y = y;
                 }
-                this->division(&gride_[x][y], &gride_[*i][*j]);
-                           
               }
+                           
             }
           }
         }
-      }    
-    }
+        division(&gride_[cor_x][cor_y], &gride_[*i][*j]);
+      }
+    }    
   }
 }
  
@@ -300,6 +356,7 @@ int Environnement::state(){
 
 
 void Environnement::death(){  
+
   for(int i=0; i<H_; ++i){
     for (int j=0; j<W_; ++j){ 
       float nb =  (rand()%(1000))/1000.0;  //random number between 0 et 1
@@ -331,17 +388,22 @@ void Environnement::death(){
 
 
 void Environnement::metabolism(){
+  //cout << "je rentre dans metabolisme" << endl;
+  //cout << gride_[0][0].IsA() << endl;
+  
   float new_Aout = .0;
   float new_Bout = .0;
     for(int i=0; i< H_; ++i){
       for (int j=0; j<W_; ++j){ 
         if (gride_[i][j].cell()->Gettype() == 'L'){
+          //cout << "ma cellule est L" << endl;
         
           float Aout =gride_[i][j].org_out()[0];
           new_Aout =gride_[i][j].cell()->absorb(Aout);
           new_Bout =gride_[i][j].org_out()[1];
         }
-        else {
+        else if (gride_[i][j].cell()->Gettype() == 'S'){
+          //cout << "ma cellule est S" << endl;
           float Bout =gride_[i][j].org_out()[1];
           
           assert(gride_[i][j].cell() != NULL);
@@ -349,6 +411,11 @@ void Environnement::metabolism(){
           new_Bout = (gride_[i][j].cell())->absorb(Bout);
           new_Aout = gride_[i][j].org_out()[0];
         }
+        
+        else {
+          cerr << "La cellule n'éxiste pas wsh " << endl;
+          exit(EXIT_FAILURE);
+       }
         
 
         vector <float> new_vect_out;
@@ -364,7 +431,7 @@ void Environnement::metabolism(){
 
 int Environnement::run(float Ainit, int t){
   filling_gride(Ainit);
-  for (int z=1; z<51; ++z){
+  for (int z=1; z<5001; ++z){
     if (z == t){
       reset_grid(Ainit);
     }
@@ -373,8 +440,9 @@ int Environnement::run(float Ainit, int t){
     death();
     competition();
     metabolism(); 
+    //cout << "#######CECI EST LA FIN DE LA BOUCLE#######" << endl << endl;
   }
-  
+
   return this->state();
       
 }

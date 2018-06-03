@@ -56,9 +56,7 @@ Cell::Cell(char c){
 //    DESTUCTORS
 //==============================
 
-Cell::~Cell(){
-  delete this;
-}
+Cell::~Cell() = default;
 
 
 //==============================
@@ -66,6 +64,7 @@ Cell::~Cell(){
 //==============================
 
 vector <float> Cell::division_org(){
+  //cout << "je suis dans division_org" << endl;
   org_int_[0] =org_int_[0]/2;
   org_int_[1] =org_int_[1]/2;
   org_int_[2] =org_int_[2]/2;

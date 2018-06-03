@@ -106,11 +106,12 @@ void Case::set_cell(char c, vector <float> org){
     delete cell_;
   }
   
-  
+  //cout << cell_ << endl;
   if (c == 'L'){
     cell_ = new CellL(org);
   }
   else if (c == 'S'){
+    //cout << "je rentre dans set_cell car je suis un S" << endl;
     cell_ = new CellS(org);
   } 
   else {
@@ -160,7 +161,11 @@ void Case::reset_case(float Ainit){
 //fonction qui permet de déterminer la fitness d'une cellule
 float Case::fitness(){
   float w;
-  if (this -> cell() -> Gettype() == 'L'){
+  if (cell_ == nullptr){
+    return 99.9;
+  }
+  
+  if (cell_ -> Gettype() == 'L'){
     w = org_out_[1];
   }
   else {
@@ -189,8 +194,11 @@ char Case::IsA(){
   if (this -> cell() -> Gettype() == 'L'){
     return 'L';
   }
-  else{
+  else if (this -> cell() -> Gettype() == 'S'){
     return 'S';
+  }
+  else {
+    return 'Z';
   }
 }
 
